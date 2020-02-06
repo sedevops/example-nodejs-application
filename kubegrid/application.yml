@@ -1,0 +1,8 @@
+version: '1.0'
+healthchecks:
+    enabled: true
+    initial_delay: 10
+    interval: 10
+    max_tries: 2
+    port: 3000
+    protocol: http
