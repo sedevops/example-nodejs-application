@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{SERVICE_NAME}}
+  labels:
+    app: {{SERVICE_UUID}}
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: {{SERVICE_UUID}}
+  template:
+    metadata:
+      labels:
+        app: {{SERVICE_UUID}}
+    spec:
+      containers:
+      - name: nginx
+        image: {{SERVICE_IMAGE}}
+        ports:
+        - containerPort: 80
+        
+---
+apiVersion: v1
+kind: Service
+metadata:  
+  name: {{SERVICE_NAME}}
+spec:
+  selector:    
+    app: {{SERVICE_UUID}}
+  type: NodePort
+  ports:  
+  - name: http
+    port: 80
+    targetPort: 80
+    nodePort: 30036
+    protocol: TCP
